@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Java 8 Interview Sample Coding Questions</title>
+
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -17,16 +18,56 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: auto;
         }
 
-        .question {
+        /* Flip Card Container */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            margin-bottom: 18px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        /* Flip Card Inner */
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            min-height: 160px;
+            transition: transform 0.7s;
+            transform-style: preserve-3d;
+        }
+
+        /* When flipped */
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        /* Front and Back */
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        /* Front */
+        .flip-card-front {
             background-color: #ffffff;
             border-left: 5px solid #3498db;
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Back */
+        .flip-card-back {
+            background-color: #2c3e50;
+            color: white;
+            transform: rotateY(180deg);
+            overflow-x: auto;
         }
 
         .question-number {
@@ -45,279 +86,839 @@
             color: #555;
             line-height: 1.5;
         }
+
+        .answer-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #f1c40f;
+        }
+
+        pre {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 12px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        .hint {
+            text-align: center;
+            color: #888;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
+
 <body>
 
 <h1>Java 8 Interview Sample Coding Questions</h1>
+<div class="hint">Click on any question card to flip and view the Java 8 solution 🔥</div>
 
 <div class="container">
 
-    <div class="question">
-        <div class="question-number">Question 1</div>
-        <div class="question-title">Separate odd and even numbers in a list</div>
-        <div class="question-desc">
-            Given a list of integers, write a Java 8 program to separate the odd and even numbers into two separate lists.
+    <!-- QUESTION 1 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 1</div>
+                <div class="question-title">Separate odd and even numbers in a list</div>
+                <div class="question-desc">
+                    Given a list of integers, write a Java 8 program to separate the odd and even numbers into two separate lists.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;Integer&gt; numbers = Arrays.asList(10, 15, 20, 25, 30);
+
+List&lt;Integer&gt; evenList = numbers.stream()
+        .filter(n -&gt; n % 2 == 0)
+        .collect(Collectors.toList());
+
+List&lt;Integer&gt; oddList = numbers.stream()
+        .filter(n -&gt; n % 2 != 0)
+        .collect(Collectors.toList());
+
+System.out.println("Even: " + evenList);
+System.out.println("Odd: " + oddList);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 2</div>
-        <div class="question-title">Remove duplicate elements from a list</div>
-        <div class="question-desc">
-            Write a Java 8 program to remove duplicate elements from a list using the stream API and lambda expressions.
+    <!-- QUESTION 2 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 2</div>
+                <div class="question-title">Remove duplicate elements from a list</div>
+                <div class="question-desc">
+                    Write a Java 8 program to remove duplicate elements from a list using the stream API and lambda expressions.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;Integer&gt; list = Arrays.asList(10, 20, 10, 30, 20);
+
+List&lt;Integer&gt; uniqueList = list.stream()
+        .distinct()
+        .collect(Collectors.toList());
+
+System.out.println(uniqueList);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 3</div>
-        <div class="question-title">Find the frequency of each character in a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the frequency of each character in a given string using streams and collectors.
+    <!-- QUESTION 3 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 3</div>
+                <div class="question-title">Find the frequency of each character in a string</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find the frequency of each character in a given string using streams and collectors.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>String input = "programming";
+
+Map&lt;Character, Long&gt; freq = input.chars()
+        .mapToObj(c -&gt; (char) c)
+        .collect(Collectors.groupingBy(
+                Function.identity(),
+                Collectors.counting()
+        ));
+
+System.out.println(freq);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 4</div>
-        <div class="question-title">Find the frequency of each element in an array or list</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the frequency of each element in an array or list using streams and collectors.
+    <!-- QUESTION 4 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 4</div>
+                <div class="question-title">Find the frequency of each element in an array or list</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find the frequency of each element in an array or list using streams and collectors.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;String&gt; list = Arrays.asList("apple", "banana", "apple", "orange");
+
+Map&lt;String, Long&gt; freqMap = list.stream()
+        .collect(Collectors.groupingBy(
+                Function.identity(),
+                Collectors.counting()
+        ));
+
+System.out.println(freqMap);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 5</div>
-        <div class="question-title">Sort a list of decimals in reverse order</div>
-        <div class="question-desc">
-            Write a Java 8 program to sort a given list of decimal numbers in reverse order.
+    <!-- QUESTION 5 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 5</div>
+                <div class="question-title">Sort a list of decimals in reverse order</div>
+                <div class="question-desc">
+                    Write a Java 8 program to sort a given list of decimal numbers in reverse order.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;Double&gt; decimals = Arrays.asList(10.5, 2.3, 45.6, 11.1);
+
+List&lt;Double&gt; sorted = decimals.stream()
+        .sorted(Comparator.reverseOrder())
+        .collect(Collectors.toList());
+
+System.out.println(sorted);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 6</div>
-        <div class="question-title">Join a list of strings with prefix and suffix</div>
-        <div class="question-desc">
-            Join a list of strings using '[' as prefix, ']' as suffix, and ',' as a delimiter using Java 8.
+    <!-- QUESTION 6 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 6</div>
+                <div class="question-title">Join a list of strings with prefix and suffix</div>
+                <div class="question-desc">
+                    Join a list of strings using '[' as prefix, ']' as suffix, and ',' as a delimiter using Java 8.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;String&gt; list = Arrays.asList("Java", "Python", "Spring");
+
+String result = list.stream()
+        .collect(Collectors.joining(",", "[", "]"));
+
+System.out.println(result);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 7</div>
-        <div class="question-title">Print multiples of 5 from a list</div>
-        <div class="question-desc">
-            Write a Java 8 program to print numbers from a list that are multiples of 5.
+    <!-- QUESTION 7 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 7</div>
+                <div class="question-title">Print multiples of 5 from a list</div>
+                <div class="question-desc">
+                    Write a Java 8 program to print numbers from a list that are multiples of 5.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;Integer&gt; list = Arrays.asList(10, 12, 15, 22, 25, 30);
+
+list.stream()
+        .filter(n -&gt; n % 5 == 0)
+        .forEach(System.out::println);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 8</div>
-        <div class="question-title">Find maximum and minimum in a list</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the maximum and minimum numbers in a list of integers.
+    <!-- QUESTION 8 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 8</div>
+                <div class="question-title">Find maximum and minimum in a list</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find the maximum and minimum numbers in a list of integers.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;Integer&gt; list = Arrays.asList(10, 5, 25, 40, 2);
+
+int max = list.stream().max(Integer::compareTo).get();
+int min = list.stream().min(Integer::compareTo).get();
+
+System.out.println("Max: " + max);
+System.out.println("Min: " + min);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 9</div>
-        <div class="question-title">Merge two unsorted arrays into a sorted array</div>
-        <div class="question-desc">
-            Merge two unsorted arrays into a single sorted array using Java 8 streams.
+    <!-- QUESTION 9 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 9</div>
+                <div class="question-title">Merge two unsorted arrays into a sorted array</div>
+                <div class="question-desc">
+                    Merge two unsorted arrays into a single sorted array using Java 8 streams.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int[] arr1 = {5, 2, 9, 1};
+int[] arr2 = {8, 3, 7, 4};
+
+int[] mergedSorted = IntStream.concat(Arrays.stream(arr1), Arrays.stream(arr2))
+        .sorted()
+        .toArray();
+
+System.out.println(Arrays.toString(mergedSorted));</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 10</div>
-        <div class="question-title">Merge two arrays into a sorted array without duplicates</div>
-        <div class="question-desc">
-            Write a Java 8 program to merge two unsorted arrays into a single sorted array without duplicates.
+    <!-- QUESTION 10 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 10</div>
+                <div class="question-title">Merge two arrays into a sorted array without duplicates</div>
+                <div class="question-desc">
+                    Write a Java 8 program to merge two unsorted arrays into a single sorted array without duplicates.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int[] arr1 = {5, 2, 9, 1, 5};
+int[] arr2 = {8, 3, 7, 4, 3};
+
+int[] mergedUnique = IntStream.concat(Arrays.stream(arr1), Arrays.stream(arr2))
+        .distinct()
+        .sorted()
+        .toArray();
+
+System.out.println(Arrays.toString(mergedUnique));</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 11</div>
-        <div class="question-title">Get three maximum and three minimum numbers</div>
-        <div class="question-desc">
-            Write a Java 8 program to get the three maximum and three minimum numbers from a list.
+    <!-- QUESTION 11 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 11</div>
+                <div class="question-title">Get three maximum and three minimum numbers</div>
+                <div class="question-desc">
+                    Write a Java 8 program to get the three maximum and three minimum numbers from a list.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;Integer&gt; list = Arrays.asList(10, 50, 20, 5, 60, 1, 90, 30);
+
+List&lt;Integer&gt; min3 = list.stream()
+        .sorted()
+        .limit(3)
+        .collect(Collectors.toList());
+
+List&lt;Integer&gt; max3 = list.stream()
+        .sorted(Comparator.reverseOrder())
+        .limit(3)
+        .collect(Collectors.toList());
+
+System.out.println("Min 3: " + min3);
+System.out.println("Max 3: " + max3);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 12</div>
-        <div class="question-title">Check if two strings are anagrams</div>
-        <div class="question-desc">
-            Write a Java 8 program to check if two strings are anagrams using streams.
+    <!-- QUESTION 12 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 12</div>
+                <div class="question-title">Check if two strings are anagrams</div>
+                <div class="question-desc">
+                    Write a Java 8 program to check if two strings are anagrams using streams.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>String s1 = "listen";
+String s2 = "silent";
+
+boolean isAnagram = Arrays.equals(
+        s1.chars().sorted().toArray(),
+        s2.chars().sorted().toArray()
+);
+
+System.out.println(isAnagram);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 13</div>
-        <div class="question-title">Find the sum of all digits of a number</div>
-        <div class="question-desc">
-            Write a Java 8 program to calculate the sum of all digits of a given number.
+    <!-- QUESTION 13 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 13</div>
+                <div class="question-title">Find the sum of all digits of a number</div>
+                <div class="question-desc">
+                    Write a Java 8 program to calculate the sum of all digits of a given number.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int number = 12345;
+
+int sum = String.valueOf(number)
+        .chars()
+        .map(Character::getNumericValue)
+        .sum();
+
+System.out.println(sum);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 14</div>
-        <div class="question-title">Find the second largest number in an array</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the second largest number in an integer array.
+    <!-- QUESTION 14 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 14</div>
+                <div class="question-title">Find the second largest number in an array</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find the second largest number in an integer array.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int[] arr = {10, 20, 50, 40, 50, 60};
+
+int secondLargest = Arrays.stream(arr)
+        .distinct()
+        .boxed()
+        .sorted(Comparator.reverseOrder())
+        .skip(1)
+        .findFirst()
+        .get();
+
+System.out.println(secondLargest);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 15</div>
-        <div class="question-title">Sort strings by increasing length</div>
-        <div class="question-desc">
-            Write a Java 8 program to sort a list of strings based on their length.
+    <!-- QUESTION 15 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 15</div>
+                <div class="question-title">Sort strings by increasing length</div>
+                <div class="question-desc">
+                    Write a Java 8 program to sort a list of strings based on their length.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;String&gt; list = Arrays.asList("Java", "SpringBoot", "Microservices", "AI");
+
+List&lt;String&gt; sorted = list.stream()
+        .sorted(Comparator.comparing(String::length))
+        .collect(Collectors.toList());
+
+System.out.println(sorted);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 16</div>
-        <div class="question-title">Find sum and average of array elements</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the sum and average of all elements in an integer array.
+    <!-- QUESTION 16 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 16</div>
+                <div class="question-title">Find sum and average of array elements</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find the sum and average of all elements in an integer array.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int[] arr = {10, 20, 30, 40, 50};
+
+IntSummaryStatistics stats = Arrays.stream(arr).summaryStatistics();
+
+System.out.println("Sum: " + stats.getSum());
+System.out.println("Average: " + stats.getAverage());</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 17</div>
-        <div class="question-title">Find common elements between two arrays</div>
-        <div class="question-desc">
-            Write a Java 8 program to find common elements between two arrays using streams.
+    <!-- QUESTION 17 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 17</div>
+                <div class="question-title">Find common elements between two arrays</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find common elements between two arrays using streams.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;Integer&gt; list1 = Arrays.asList(10, 20, 30, 40, 50);
+List&lt;Integer&gt; list2 = Arrays.asList(30, 40, 60, 70);
+
+List&lt;Integer&gt; common = list1.stream()
+        .filter(list2::contains)
+        .collect(Collectors.toList());
+
+System.out.println(common);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 18</div>
-        <div class="question-title">Reverse each word of a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to reverse each word of a given string.
+    <!-- QUESTION 18 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 18</div>
+                <div class="question-title">Reverse each word of a string</div>
+                <div class="question-desc">
+                    Write a Java 8 program to reverse each word of a given string.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>String input = "Java is very powerful";
+
+String output = Arrays.stream(input.split(" "))
+        .map(word -&gt; new StringBuilder(word).reverse().toString())
+        .collect(Collectors.joining(" "));
+
+System.out.println(output);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 19</div>
-        <div class="question-title">Find the sum of first 10 natural numbers</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the sum of the first 10 natural numbers.
+    <!-- QUESTION 19 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 19</div>
+                <div class="question-title">Find the sum of first 10 natural numbers</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find the sum of the first 10 natural numbers.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int sum = IntStream.rangeClosed(1, 10).sum();
+System.out.println(sum);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 20</div>
-        <div class="question-title">Reverse an integer array</div>
-        <div class="question-desc">
-            Write a Java 8 program to reverse an integer array.
+    <!-- QUESTION 20 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 20</div>
+                <div class="question-title">Reverse an integer array</div>
+                <div class="question-desc">
+                    Write a Java 8 program to reverse an integer array.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int[] arr = {10, 20, 30, 40, 50};
+
+int[] reversed = IntStream.range(0, arr.length)
+        .map(i -&gt; arr[arr.length - 1 - i])
+        .toArray();
+
+System.out.println(Arrays.toString(reversed));</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 21</div>
-        <div class="question-title">Print the first 10 even numbers</div>
-        <div class="question-desc">
-            Write a Java 8 program to print the first 10 even numbers.
+    <!-- QUESTION 21 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 21</div>
+                <div class="question-title">Print the first 10 even numbers</div>
+                <div class="question-desc">
+                    Write a Java 8 program to print the first 10 even numbers.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>IntStream.iterate(2, n -&gt; n + 2)
+        .limit(10)
+        .forEach(System.out::println);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 22</div>
-        <div class="question-title">Find the most repeated element in an array</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the most repeated element in an array.
+    <!-- QUESTION 22 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 22</div>
+                <div class="question-title">Find the most repeated element in an array</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find the most repeated element in an array.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int[] arr = {10, 20, 10, 30, 40, 10, 20, 20};
+
+Map&lt;Integer, Long&gt; freqMap = Arrays.stream(arr)
+        .boxed()
+        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+int mostRepeated = freqMap.entrySet().stream()
+        .max(Map.Entry.comparingByValue())
+        .get()
+        .getKey();
+
+System.out.println(mostRepeated);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 23</div>
-        <div class="question-title">Check if a string is a palindrome</div>
-        <div class="question-desc">
-            Write a Java 8 program to check if a given string is a palindrome.
+    <!-- QUESTION 23 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 23</div>
+                <div class="question-title">Check if a string is a palindrome</div>
+                <div class="question-desc">
+                    Write a Java 8 program to check if a given string is a palindrome.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>String input = "madam";
+
+boolean isPalindrome = input.equals(
+        new StringBuilder(input).reverse().toString()
+);
+
+System.out.println(isPalindrome);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 24</div>
-        <div class="question-title">Find strings starting with a number</div>
-        <div class="question-desc">
-            Write a Java 8 program to find strings in a list that start with a number.
+    <!-- QUESTION 24 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 24</div>
+                <div class="question-title">Find strings starting with a number</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find strings in a list that start with a number.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>List&lt;String&gt; list = Arrays.asList("1Java", "Python", "2Spring", "Microservices");
+
+List&lt;String&gt; result = list.stream()
+        .filter(s -&gt; Character.isDigit(s.charAt(0)))
+        .collect(Collectors.toList());
+
+System.out.println(result);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 25</div>
-        <div class="question-title">Extract duplicate elements from an array</div>
-        <div class="question-desc">
-            Write a Java 8 program to extract duplicate elements from an array.
+    <!-- QUESTION 25 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 25</div>
+                <div class="question-title">Extract duplicate elements from an array</div>
+                <div class="question-desc">
+                    Write a Java 8 program to extract duplicate elements from an array.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int[] arr = {10, 20, 30, 10, 40, 20, 50};
+
+Set&lt;Integer&gt; duplicates = Arrays.stream(arr)
+        .boxed()
+        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+        .entrySet().stream()
+        .filter(e -&gt; e.getValue() &gt; 1)
+        .map(Map.Entry::getKey)
+        .collect(Collectors.toSet());
+
+System.out.println(duplicates);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 26</div>
-        <div class="question-title">Print duplicate characters in a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to print duplicate characters in a string.
+    <!-- QUESTION 26 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 26</div>
+                <div class="question-title">Print duplicate characters in a string</div>
+                <div class="question-desc">
+                    Write a Java 8 program to print duplicate characters in a string.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>String input = "programming";
+
+Set&lt;Character&gt; duplicates = input.chars()
+        .mapToObj(c -&gt; (char) c)
+        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+        .entrySet().stream()
+        .filter(e -&gt; e.getValue() &gt; 1)
+        .map(Map.Entry::getKey)
+        .collect(Collectors.toSet());
+
+System.out.println(duplicates);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 27</div>
-        <div class="question-title">Find the first repeated character in a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the first repeated character in a string.
+    <!-- QUESTION 27 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 27</div>
+                <div class="question-title">Find the first repeated character in a string</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find the first repeated character in a string.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>String input = "programming";
+
+Character firstRepeated = input.chars()
+        .mapToObj(c -&gt; (char) c)
+        .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+        .entrySet().stream()
+        .filter(e -&gt; e.getValue() &gt; 1)
+        .map(Map.Entry::getKey)
+        .findFirst()
+        .orElse(null);
+
+System.out.println(firstRepeated);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 28</div>
-        <div class="question-title">Find the first non-repeated character in a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the first non-repeated character in a string.
+    <!-- QUESTION 28 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 28</div>
+                <div class="question-title">Find the first non-repeated character in a string</div>
+                <div class="question-desc">
+                    Write a Java 8 program to find the first non-repeated character in a string.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>String input = "programming";
+
+Character firstNonRepeated = input.chars()
+        .mapToObj(c -&gt; (char) c)
+        .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+        .entrySet().stream()
+        .filter(e -&gt; e.getValue() == 1)
+        .map(Map.Entry::getKey)
+        .findFirst()
+        .orElse(null);
+
+System.out.println(firstNonRepeated);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 29</div>
-        <div class="question-title">Generate the Fibonacci series</div>
-        <div class="question-desc">
-            Write a Java 8 program to generate the Fibonacci series.
+    <!-- QUESTION 29 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 29</div>
+                <div class="question-title">Generate the Fibonacci series</div>
+                <div class="question-desc">
+                    Write a Java 8 program to generate the Fibonacci series.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>Stream.iterate(new int[]{0, 1}, f -&gt; new int[]{f[1], f[0] + f[1]})
+        .limit(10)
+        .map(f -&gt; f[0])
+        .forEach(System.out::println);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 30</div>
-        <div class="question-title">Print the first 10 odd numbers</div>
-        <div class="question-desc">
-            Write a Java 8 program to print the first 10 odd numbers.
+    <!-- QUESTION 30 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 30</div>
+                <div class="question-title">Print the first 10 odd numbers</div>
+                <div class="question-desc">
+                    Write a Java 8 program to print the first 10 odd numbers.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>IntStream.iterate(1, n -&gt; n + 2)
+        .limit(10)
+        .forEach(System.out::println);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 31</div>
-        <div class="question-title">Get the last element of an array</div>
-        <div class="question-desc">
-            Write a Java 8 program to get the last element of an array.
+    <!-- QUESTION 31 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 31</div>
+                <div class="question-title">Get the last element of an array</div>
+                <div class="question-desc">
+                    Write a Java 8 program to get the last element of an array.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>int[] arr = {10, 20, 30, 40, 50};
+
+int last = Arrays.stream(arr)
+        .reduce((first, second) -&gt; second)
+        .getAsInt();
+
+System.out.println(last);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 32</div>
-        <div class="question-title">Calculate age in years</div>
-        <div class="question-desc">
-            Write a Java 8 program to calculate the age of a person in years using their date of birth.
+    <!-- QUESTION 32 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 32</div>
+                <div class="question-title">Calculate age in years</div>
+                <div class="question-desc">
+                    Write a Java 8 program to calculate the age of a person in years using their date of birth.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>LocalDate dob = LocalDate.of(2000, 5, 10);
+LocalDate today = LocalDate.now();
+
+int age = Period.between(dob, today).getYears();
+
+System.out.println("Age: " + age);</code></pre>
+            </div>
         </div>
     </div>
 
-    <div class="question">
-        <div class="question-number">Question 33</div>
-        <div class="question-title">Extract unique strings starting with #</div>
-        <div class="question-desc">
-            Write a Java 8 program to extract unique strings starting with "#" from a string array using streams.
+    <!-- QUESTION 33 -->
+    <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <div class="question-number">Question 33</div>
+                <div class="question-title">Extract unique strings starting with #</div>
+                <div class="question-desc">
+                    Write a Java 8 program to extract unique strings starting with "#" from a string array using streams.
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="answer-title">Java 8 Solution</div>
+                <pre><code>String[] arr = {"#Java", "#Spring", "Python", "#Java", "#AI", "Cloud", "#AI"};
+
+List&lt;String&gt; result = Arrays.stream(arr)
+        .filter(s -&gt; s.startsWith("#"))
+        .distinct()
+        .collect(Collectors.toList());
+
+System.out.println(result);</code></pre>
+            </div>
         </div>
     </div>
 
 </div>
+
+<script>
+    function flipCard(card) {
+        card.classList.toggle("flipped");
+    }
+</script>
 
 </body>
 </html>
