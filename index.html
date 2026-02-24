@@ -1,323 +1,663 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Java 8 Interview Sample Coding Questions</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 20px;
-        }
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Java 8 Interview Questions</title>
+      <style>
+         body {
+         font-family: 'Segoe UI', sans-serif;
+         background: linear-gradient(135deg, #eef2f7, #d9e4f5);
+         margin: 0;
+         padding: 20px;
+         }
+         h1 {
+         text-align: center;
+         margin-bottom: 40px;
+         color: #1f2d3d;
+         }
+         .container {
+         max-width: 1100px;
+         margin: auto;
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+         gap: 25px;
+         }
+         @media (max-width: 900px) {
+         .container {
+         grid-template-columns: 1fr;
+         }
+         }
+         .question {
+         background: white;
+         border-radius: 12px;
+         padding: 20px;
+         box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+         transition: 0.3s;
+         position: relative;
+         }
+         .question:hover {
+         transform: translateY(-5px);
+         box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+         }
+         .question-title {
+         font-weight: 600;
+         cursor: pointer;
+         color: #2c3e50;
+         }
+         .toggle {
+         float: right;
+         font-weight: bold;
+         color: #6c63ff;
+         }
+         .solution {
+         max-height: 0;
+         overflow: hidden;
+         transition: max-height 0.4s ease;
+         margin-top: 10px;
+         }
+         .solution pre {
+         background: #f4f6f8;
+         padding: 10px;
+         border-radius: 6px;
+         overflow-x: auto;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Java 8 Interview Questions (With Solutions)</h1>
+      <div class="container">
+         <!-- Question 1 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               1. Separate odd and even numbers <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<Integer> numbers = Arrays.asList(1,2,3,4,5,6);
 
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-        }
+Map<Boolean, List<Integer>> result =
+numbers.stream()
+.collect(Collectors.partitioningBy(n -> n % 2 == 0));
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
+System.out.println("Even: " + result.get(true));
+System.out.println("Odd: " + result.get(false));
+</pre>
+            </div>
+         </div>
+         <!-- Question 2 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               2. Remove duplicate elements <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<Integer> list = Arrays.asList(1,2,2,3,4,4);
 
-        .question {
-            background-color: #ffffff;
-            border-left: 5px solid #3498db;
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+List<Integer> unique =
+list.stream()
+.distinct()
+.collect(Collectors.toList());
 
-        .question-number {
-            font-weight: bold;
-            color: #3498db;
-        }
+System.out.println(unique);
+</pre>
+            </div>
+         </div>
+         <!-- Question 3 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               3. Frequency of each character <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+String str = "hello";
 
-        .question-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin: 5px 0;
-            color: #2c3e50;
-        }
+Map<Character, Long> freq =
+str.chars()
+.mapToObj(c -> (char) c)
+.collect(Collectors.groupingBy(
+c -> c,
+Collectors.counting()));
 
-        .question-desc {
-            color: #555;
-            line-height: 1.5;
-        }
-    </style>
-</head>
-<body>
+System.out.println(freq);
+</pre>
+            </div>
+         </div>
+         <!-- Question 4 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               4. Frequency of each element in list <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<String> list = Arrays.asList("a","b","a","c");
 
-<h1>Java 8 Interview Sample Coding Questions</h1>
+Map<String, Long> result =
+list.stream()
+.collect(Collectors.groupingBy(
+e -> e,
+Collectors.counting()));
 
-<div class="container">
+System.out.println(result);
+</pre>
+            </div>
+         </div>
+         <!-- Question 5 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               5. Sort decimals in reverse order <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<Double> nums = Arrays.asList(1.2, 3.4, 2.5);
 
-    <div class="question">
-        <div class="question-number">Question 1</div>
-        <div class="question-title">Separate odd and even numbers in a list</div>
-        <div class="question-desc">
-            Given a list of integers, write a Java 8 program to separate the odd and even numbers into two separate lists.
-        </div>
-    </div>
+nums.stream()
+.sorted(Comparator.reverseOrder())
+.forEach(System.out::println);
+</pre>
+            </div>
+         </div>
+         <!-- Question 6 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               6. Join a list of strings with prefix and suffix <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<String> list = Arrays.asList("A", "B", "C");
 
-    <div class="question">
-        <div class="question-number">Question 2</div>
-        <div class="question-title">Remove duplicate elements from a list</div>
-        <div class="question-desc">
-            Write a Java 8 program to remove duplicate elements from a list using the stream API and lambda expressions.
-        </div>
-    </div>
+String result = list.stream()
+.collect(Collectors.joining(",", "[", "]"));
 
-    <div class="question">
-        <div class="question-number">Question 3</div>
-        <div class="question-title">Find the frequency of each character in a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the frequency of each character in a given string using streams and collectors.
-        </div>
-    </div>
+System.out.println(result);  // [A,B,C]
+</pre>
+            </div>
+         </div>
+         <!-- Question 7 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               7. Print multiples of 5 from a list <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<Integer> numbers = Arrays.asList(5, 12, 15, 20, 33);
 
-    <div class="question">
-        <div class="question-number">Question 4</div>
-        <div class="question-title">Find the frequency of each element in an array or list</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the frequency of each element in an array or list using streams and collectors.
-        </div>
-    </div>
+numbers.stream()
+.filter(n -> n % 5 == 0)
+.forEach(System.out::println);
+</pre>
+            </div>
+         </div>
+         <!-- Question 8 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               8. Find maximum and minimum in a list <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<Integer> numbers = Arrays.asList(10, 5, 30, 2, 50);
 
-    <div class="question">
-        <div class="question-number">Question 5</div>
-        <div class="question-title">Sort a list of decimals in reverse order</div>
-        <div class="question-desc">
-            Write a Java 8 program to sort a given list of decimal numbers in reverse order.
-        </div>
-    </div>
+int max = numbers.stream().max(Integer::compare).get();
+int min = numbers.stream().min(Integer::compare).get();
 
-    <div class="question">
-        <div class="question-number">Question 6</div>
-        <div class="question-title">Join a list of strings with prefix and suffix</div>
-        <div class="question-desc">
-            Join a list of strings using '[' as prefix, ']' as suffix, and ',' as a delimiter using Java 8.
-        </div>
-    </div>
+System.out.println("Max: " + max);
+System.out.println("Min: " + min);
+</pre>
+            </div>
+         </div>
+         <!-- Question 9 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               9. Merge two unsorted arrays into a sorted array <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+int[] arr1 = {5, 1, 9};
+int[] arr2 = {2, 8, 3};
 
-    <div class="question">
-        <div class="question-number">Question 7</div>
-        <div class="question-title">Print multiples of 5 from a list</div>
-        <div class="question-desc">
-            Write a Java 8 program to print numbers from a list that are multiples of 5.
-        </div>
-    </div>
+int[] result = IntStream.concat(Arrays.stream(arr1),
+                                 Arrays.stream(arr2))
+.sorted()
+.toArray();
 
-    <div class="question">
-        <div class="question-number">Question 8</div>
-        <div class="question-title">Find maximum and minimum in a list</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the maximum and minimum numbers in a list of integers.
-        </div>
-    </div>
+System.out.println(Arrays.toString(result));
+</pre>
+            </div>
+         </div>
+         <!-- Question 10 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               10. Merge two arrays into a sorted array without duplicates <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+int[] arr1 = {5, 1, 9};
+int[] arr2 = {2, 9, 3};
 
-    <div class="question">
-        <div class="question-number">Question 9</div>
-        <div class="question-title">Merge two unsorted arrays into a sorted array</div>
-        <div class="question-desc">
-            Merge two unsorted arrays into a single sorted array using Java 8 streams.
-        </div>
-    </div>
+int[] result = IntStream.concat(Arrays.stream(arr1),
+                                 Arrays.stream(arr2))
+.distinct()
+.sorted()
+.toArray();
 
-    <div class="question">
-        <div class="question-number">Question 10</div>
-        <div class="question-title">Merge two arrays into a sorted array without duplicates</div>
-        <div class="question-desc">
-            Write a Java 8 program to merge two unsorted arrays into a single sorted array without duplicates.
-        </div>
-    </div>
+System.out.println(Arrays.toString(result));
+</pre>
+            </div>
+         </div>
+         <!-- Question 11 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               11. Get three maximum and three minimum numbers <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<Integer> numbers = Arrays.asList(10, 5, 30, 2, 50, 40);
 
-    <div class="question">
-        <div class="question-number">Question 11</div>
-        <div class="question-title">Get three maximum and three minimum numbers</div>
-        <div class="question-desc">
-            Write a Java 8 program to get the three maximum and three minimum numbers from a list.
-        </div>
-    </div>
+List<Integer> top3 = numbers.stream()
+.sorted(Comparator.reverseOrder())
+.limit(3)
+.collect(Collectors.toList());
 
-    <div class="question">
-        <div class="question-number">Question 12</div>
-        <div class="question-title">Check if two strings are anagrams</div>
-        <div class="question-desc">
-            Write a Java 8 program to check if two strings are anagrams using streams.
-        </div>
-    </div>
+List<Integer> bottom3 = numbers.stream()
+.sorted()
+.limit(3)
+.collect(Collectors.toList());
 
-    <div class="question">
-        <div class="question-number">Question 13</div>
-        <div class="question-title">Find the sum of all digits of a number</div>
-        <div class="question-desc">
-            Write a Java 8 program to calculate the sum of all digits of a given number.
-        </div>
-    </div>
+System.out.println("Top 3: " + top3);
+System.out.println("Bottom 3: " + bottom3);
+</pre>
+            </div>
+         </div>
+         <!-- Question 12 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               12. Check if two strings are anagrams <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+String s1 = "listen";
+String s2 = "silent";
 
-    <div class="question">
-        <div class="question-number">Question 14</div>
-        <div class="question-title">Find the second largest number in an array</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the second largest number in an integer array.
-        </div>
-    </div>
+boolean isAnagram = 
+s1.length() == s2.length() &&
+s1.chars().sorted()
+.collect(StringBuilder::new,
+         StringBuilder::appendCodePoint,
+         StringBuilder::append)
+.toString()
+.equals(
+s2.chars().sorted()
+.collect(StringBuilder::new,
+         StringBuilder::appendCodePoint,
+         StringBuilder::append)
+.toString());
 
-    <div class="question">
-        <div class="question-number">Question 15</div>
-        <div class="question-title">Sort strings by increasing length</div>
-        <div class="question-desc">
-            Write a Java 8 program to sort a list of strings based on their length.
-        </div>
-    </div>
+System.out.println(isAnagram);
+</pre>
+            </div>
+         </div>
+         <!-- Question 13 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               13. Find the sum of all digits of a number <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+int number = 12345;
 
-    <div class="question">
-        <div class="question-number">Question 16</div>
-        <div class="question-title">Find sum and average of array elements</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the sum and average of all elements in an integer array.
-        </div>
-    </div>
+int sum = String.valueOf(number)
+.chars()
+.map(Character::getNumericValue)
+.sum();
 
-    <div class="question">
-        <div class="question-number">Question 17</div>
-        <div class="question-title">Find common elements between two arrays</div>
-        <div class="question-desc">
-            Write a Java 8 program to find common elements between two arrays using streams.
-        </div>
-    </div>
+System.out.println(sum);
+</pre>
+            </div>
+         </div>
+         <!-- Question 14 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               14. Find the second largest number in an array <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+int[] arr = {10, 20, 5, 30, 25};
 
-    <div class="question">
-        <div class="question-number">Question 18</div>
-        <div class="question-title">Reverse each word of a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to reverse each word of a given string.
-        </div>
-    </div>
+int secondLargest = Arrays.stream(arr)
+.boxed()
+.sorted(Comparator.reverseOrder())
+.skip(1)
+.findFirst()
+.get();
 
-    <div class="question">
-        <div class="question-number">Question 19</div>
-        <div class="question-title">Find the sum of first 10 natural numbers</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the sum of the first 10 natural numbers.
-        </div>
-    </div>
+System.out.println(secondLargest);
+</pre>
+            </div>
+         </div>
+         <!-- Question 15 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               15. Sort strings by increasing length <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<String> list = Arrays.asList("Java", "Stream", "API", "Code");
 
-    <div class="question">
-        <div class="question-number">Question 20</div>
-        <div class="question-title">Reverse an integer array</div>
-        <div class="question-desc">
-            Write a Java 8 program to reverse an integer array.
-        </div>
-    </div>
+list.stream()
+.sorted(Comparator.comparing(String::length))
+.forEach(System.out::println);
+</pre>
+            </div>
+         </div>
+         <!-- Question 16 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               16. Find sum and average of array elements <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+int[] arr = {10, 20, 30, 40};
 
-    <div class="question">
-        <div class="question-number">Question 21</div>
-        <div class="question-title">Print the first 10 even numbers</div>
-        <div class="question-desc">
-            Write a Java 8 program to print the first 10 even numbers.
-        </div>
-    </div>
+int sum = Arrays.stream(arr).sum();
+double avg = Arrays.stream(arr).average().getAsDouble();
 
-    <div class="question">
-        <div class="question-number">Question 22</div>
-        <div class="question-title">Find the most repeated element in an array</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the most repeated element in an array.
-        </div>
-    </div>
+System.out.println("Sum: " + sum);
+System.out.println("Average: " + avg);
+</pre>
+            </div>
+         </div>
+         <!-- Question 17 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               17. Find common elements between two arrays <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<Integer> list1 = Arrays.asList(1,2,3,4);
+List<Integer> list2 = Arrays.asList(3,4,5,6);
 
-    <div class="question">
-        <div class="question-number">Question 23</div>
-        <div class="question-title">Check if a string is a palindrome</div>
-        <div class="question-desc">
-            Write a Java 8 program to check if a given string is a palindrome.
-        </div>
-    </div>
+List<Integer> common = list1.stream()
+.filter(list2::contains)
+.collect(Collectors.toList());
 
-    <div class="question">
-        <div class="question-number">Question 24</div>
-        <div class="question-title">Find strings starting with a number</div>
-        <div class="question-desc">
-            Write a Java 8 program to find strings in a list that start with a number.
-        </div>
-    </div>
+System.out.println(common);
+</pre>
+            </div>
+         </div>
+         <!-- Question 18 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               18. Reverse each word of a string <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+String input = "Java Stream API";
 
-    <div class="question">
-        <div class="question-number">Question 25</div>
-        <div class="question-title">Extract duplicate elements from an array</div>
-        <div class="question-desc">
-            Write a Java 8 program to extract duplicate elements from an array.
-        </div>
-    </div>
+String result = Arrays.stream(input.split(" "))
+.map(word -> new StringBuilder(word).reverse().toString())
+.collect(Collectors.joining(" "));
 
-    <div class="question">
-        <div class="question-number">Question 26</div>
-        <div class="question-title">Print duplicate characters in a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to print duplicate characters in a string.
-        </div>
-    </div>
+System.out.println(result);
+</pre>
+            </div>
+         </div>
+         <!-- Question 19 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               19. Find the sum of first 10 natural numbers <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+int sum = IntStream.rangeClosed(1, 10).sum();
+System.out.println(sum);
+</pre>
+            </div>
+         </div>
+         <!-- Question 20 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               20. Reverse an integer array <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+int[] arr = {1,2,3,4,5};
 
-    <div class="question">
-        <div class="question-number">Question 27</div>
-        <div class="question-title">Find the first repeated character in a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the first repeated character in a string.
-        </div>
-    </div>
+int[] reversed = IntStream.rangeClosed(1, arr.length)
+.map(i -> arr[arr.length - i])
+.toArray();
 
-    <div class="question">
-        <div class="question-number">Question 28</div>
-        <div class="question-title">Find the first non-repeated character in a string</div>
-        <div class="question-desc">
-            Write a Java 8 program to find the first non-repeated character in a string.
-        </div>
-    </div>
+System.out.println(Arrays.toString(reversed));
+</pre>
+            </div>
+         </div>
+         <!-- Question 21 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               21. Print the first 10 even numbers <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+IntStream.iterate(2, n -> n + 2)
+.limit(10)
+.forEach(System.out::println);
+</pre>
+            </div>
+         </div>
+         <!-- Question 22 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               22. Find the most repeated element in an array <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<Integer> list = Arrays.asList(1,2,2,3,3,3,4);
 
-    <div class="question">
-        <div class="question-number">Question 29</div>
-        <div class="question-title">Generate the Fibonacci series</div>
-        <div class="question-desc">
-            Write a Java 8 program to generate the Fibonacci series.
-        </div>
-    </div>
+Integer mostFrequent = list.stream()
+.collect(Collectors.groupingBy(e -> e, Collectors.counting()))
+.entrySet()
+.stream()
+.max(Map.Entry.comparingByValue())
+.get()
+.getKey();
 
-    <div class="question">
-        <div class="question-number">Question 30</div>
-        <div class="question-title">Print the first 10 odd numbers</div>
-        <div class="question-desc">
-            Write a Java 8 program to print the first 10 odd numbers.
-        </div>
-    </div>
+System.out.println(mostFrequent);
+</pre>
+            </div>
+         </div>
+         <!-- Question 23 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               23. Check if a string is a palindrome <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+String str = "madam";
 
-    <div class="question">
-        <div class="question-number">Question 31</div>
-        <div class="question-title">Get the last element of an array</div>
-        <div class="question-desc">
-            Write a Java 8 program to get the last element of an array.
-        </div>
-    </div>
+boolean isPalindrome =
+IntStream.range(0, str.length()/2)
+.noneMatch(i -> str.charAt(i) != str.charAt(str.length()-i-1));
 
-    <div class="question">
-        <div class="question-number">Question 32</div>
-        <div class="question-title">Calculate age in years</div>
-        <div class="question-desc">
-            Write a Java 8 program to calculate the age of a person in years using their date of birth.
-        </div>
-    </div>
+System.out.println(isPalindrome);
+</pre>
+            </div>
+         </div>
+         <!-- Question 24 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               24. Find strings starting with a number <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<String> list = Arrays.asList("1abc", "abc", "2xyz");
 
-    <div class="question">
-        <div class="question-number">Question 33</div>
-        <div class="question-title">Extract unique strings starting with #</div>
-        <div class="question-desc">
-            Write a Java 8 program to extract unique strings starting with "#" from a string array using streams.
-        </div>
-    </div>
+list.stream()
+.filter(s -> !s.isEmpty() && Character.isDigit(s.charAt(0)))
+.forEach(System.out::println);
+</pre>
+            </div>
+         </div>
+         <!-- Question 25 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               25. Extract duplicate elements from an array <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<Integer> list = Arrays.asList(1,2,2,3,4,4,5);
 
-</div>
+Set<Integer> duplicates = list.stream()
+.filter(e -> Collections.frequency(list, e) > 1)
+.collect(Collectors.toSet());
 
-</body>
+System.out.println(duplicates);
+</pre>
+            </div>
+         </div>
+         <!-- Question 26 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               26. Print duplicate characters in a string <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+String str = "programming";
+
+Set<Character> duplicates = str.chars()
+.mapToObj(c -> (char)c)
+.filter(c -> str.indexOf(c) != str.lastIndexOf(c))
+.collect(Collectors.toSet());
+
+System.out.println(duplicates);
+</pre>
+            </div>
+         </div>
+         <!-- Question 27 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               27. Find the first repeated character in a string <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+String str = "programming";
+
+Character firstRepeated = str.chars()
+.mapToObj(c -> (char)c)
+.filter(c -> str.indexOf(c) != str.lastIndexOf(c))
+.findFirst()
+.get();
+
+System.out.println(firstRepeated);
+</pre>
+            </div>
+         </div>
+         <!-- Question 28 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               28. Find the first non-repeated character in a string <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+String str = "programming";
+
+Character firstNonRepeated = str.chars()
+.mapToObj(c -> (char)c)
+.filter(c -> str.indexOf(c) == str.lastIndexOf(c))
+.findFirst()
+.get();
+
+System.out.println(firstNonRepeated);
+</pre>
+            </div>
+         </div>
+         <!-- Question 29 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               29. Generate the Fibonacci series <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+Stream.iterate(new int[]{0,1},
+t -> new int[]{t[1], t[0] + t[1]})
+.limit(10)
+.map(t -> t[0])
+.forEach(System.out::println);
+</pre>
+            </div>
+         </div>
+         <!-- Question 30 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               30. Print the first 10 odd numbers <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+IntStream.iterate(1, n -> n + 2)
+.limit(10)
+.forEach(System.out::println);
+</pre>
+            </div>
+         </div>
+         <!-- Question 31 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               31. Get the last element of an array <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+int[] arr = {10,20,30,40};
+
+int last = Arrays.stream(arr)
+.reduce((first, second) -> second)
+.getAsInt();
+
+System.out.println(last);
+</pre>
+            </div>
+         </div>
+         <!-- Question 32 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               32. Calculate age in years <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+LocalDate birthDate = LocalDate.of(1995, 5, 10);
+int age = Period.between(birthDate, LocalDate.now()).getYears();
+
+System.out.println(age);
+</pre>
+            </div>
+         </div>
+         <!-- Question 33 -->
+         <div class="question">
+            <div class="question-title" onclick="toggleSolution(this)">
+               33. Extract unique strings starting with # <span class="toggle">+</span>
+            </div>
+            <div class="solution">
+               <pre>
+List<String> list = Arrays.asList("#java", "#stream", "hello", "#java");
+
+list.stream()
+.filter(s -> s.startsWith("#"))
+.distinct()
+.forEach(System.out::println);
+</pre>
+            </div>
+         </div>
+      </div>
+      <script>
+         function toggleSolution(element) {
+             const solution = element.nextElementSibling;
+             const toggleIcon = element.querySelector(".toggle");
+         
+             if (solution.style.maxHeight) {
+                 solution.style.maxHeight = null;
+                 toggleIcon.textContent = "+";
+             } else {
+                 solution.style.maxHeight = solution.scrollHeight + "px";
+                 toggleIcon.textContent = "−";
+             }
+         }
+      </script>
+   </body>
 </html>
